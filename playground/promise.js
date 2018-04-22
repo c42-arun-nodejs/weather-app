@@ -8,13 +8,22 @@ var asyncAdd = (a, b) => {
     });
 };
 
-asyncAdd(5, '10').then((resolvedRes) => {
+// asyncAdd(5, '10').then((resolvedRes) => {
+//     console.log(resolvedRes);
+//     return asyncAdd(resolvedRes, 100);
+// }, (rejectedRes) => {
+//     console.log('Error: ', rejectedRes);
+// }).then((resolved) => {
+//     console.log('Final total: ', resolved)  // <-- this resolve section runs even when previous promise in the chain got rejected - gets an 'undefined' passed in
+// }, (rejected) => {
+//     console.log('Final error: ', rejected);
+// });
+
+asyncAdd(5, '10').then((resolvedRes) => {   // <-- observe we do not supply a 'reject' block for any of the 'then' blocks here1
     console.log(resolvedRes);
     return asyncAdd(resolvedRes, 100);
-}, (rejectedRes) => {
-    console.log('Error: ', rejectedRes);
 }).then((resolved) => {
-    console.log('Final total: ', resolved)  // <-- this resolve section runs even when previous promise in the chain got rejected - gets an 'undefined' passed in
-}, (rejected) => {
-    console.log('Final error: ', rejected);
+    console.log('Final total: ', resolved)
+}).catch((errorMesage) => {
+    console.log('Catch block error msg: ', errorMesage);    // <-- catch() block gets called when any of the previous promises get 'reject'ed
 });
