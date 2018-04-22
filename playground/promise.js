@@ -1,12 +1,20 @@
-var somePromise = new Promise((resolve, reject) => {
-    setTimeout(() => {
-        // resolve('Promise success!');
-        reject('Unable to fulfil promise');
-    }, 2500);
-});
+var asyncAdd = (a, b) => {
+    return new Promise((resolve, reject) => {
+        if (typeof a === 'number' && typeof b === 'number') {
+            resolve(a + b);
+        } else {
+            reject('Arguments must be a number');
+        }
+    });
+};
 
-somePromise.then((resolveResult)=> {
-    console.log('Success: ', resolveResult);
-}, (rejectResult) => {
-    console.log('Failed: ', rejectResult);
+asyncAdd(5, '10').then((resolvedRes) => {
+    console.log(resolvedRes);
+    return asyncAdd(resolvedRes, 100);
+}, (rejectedRes) => {
+    console.log('Error: ', rejectedRes);
+}).then((resolved) => {
+    console.log('Final total: ', resolved)  // <-- this resolve section runs even when previous promise in the chain got rejected - gets an 'undefined' passed in
+}, (rejected) => {
+    console.log('Final error: ', rejected);
 });
