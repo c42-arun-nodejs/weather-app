@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/c42-arun-nodejs/weather-app#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "request": "^2.73.0",
     "yargs": "^4.8.1"
   }
